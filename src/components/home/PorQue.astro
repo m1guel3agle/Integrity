@@ -1,0 +1,30 @@
+---
+import home from '../../content/home';
+const { porQue } = home;
+---
+
+<section id="por-que" class="relative isolate overflow-hidden bg-navy py-24 text-white lg:py-32">
+  <div class="columns-pattern absolute inset-0 -z-10" aria-hidden="true"></div>
+  <img src="/brand/emblem-white.png" alt="" width="282" height="282" class="absolute -right-24 -bottom-24 -z-10 w-[28rem] opacity-[0.04]" aria-hidden="true" loading="lazy" />
+
+  <div class="container-x grid gap-16 lg:grid-cols-[1fr_1.3fr] lg:gap-24">
+    <div>
+      <p class="eyebrow reveal text-gold-light">{porQue.etiqueta}</p>
+      <h2 class="reveal mt-5 text-3xl leading-tight font-extrabold tracking-tight text-balance sm:text-4xl xl:text-5xl" style="--delay:80ms">
+        {porQue.titulo}
+      </h2>
+    </div>
+
+    <ul class="grid gap-px overflow-hidden rounded-3xl bg-white/10 sm:grid-cols-2">
+      {porQue.items.map((item, i) => (
+        <li class="reveal group bg-navy p-8 transition duration-500 hover:bg-navy-800 lg:p-10" style={`--delay:${i * 100}ms`}>
+          <span class="font-serif text-5xl text-transparent italic transition duration-500 [-webkit-text-stroke:1px_var(--color-gold)] group-hover:text-gold">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <h3 class="mt-6 text-xl font-bold">{item.titulo}</h3>
+          <p class="mt-3 leading-relaxed text-white/70">{item.texto}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

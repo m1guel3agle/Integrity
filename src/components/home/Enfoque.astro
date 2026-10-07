@@ -1,0 +1,33 @@
+---
+import home from '../../content/home';
+const { enfoque } = home;
+---
+
+<section id="enfoque" class="relative overflow-hidden bg-ivory py-24 lg:py-32">
+  <div class="container-x grid gap-16 lg:grid-cols-2 lg:gap-24">
+    <div class="lg:sticky lg:top-32 lg:self-start">
+      <p class="eyebrow reveal text-gold-dark">{enfoque.etiqueta}</p>
+      <h2 class="reveal mt-5 text-3xl leading-tight font-extrabold tracking-tight text-balance sm:text-4xl xl:text-5xl" style="--delay:80ms">
+        {enfoque.titulo}
+      </h2>
+      <div class="mt-8 space-y-5 text-lg leading-relaxed text-slate">
+        {enfoque.parrafos.map((p, i) => <p class="reveal" style={`--delay:${150 + i * 80}ms`}>{p}</p>)}
+      </div>
+    </div>
+
+    <ol class="steps relative space-y-4">
+      <span class="absolute top-8 bottom-8 left-[2.15rem] w-px bg-navy/15" aria-hidden="true"></span>
+      {enfoque.pasos.map((paso, i) => (
+        <li class="step reveal group relative flex gap-6 rounded-3xl p-5 transition duration-300 hover:bg-white hover:shadow-xl hover:shadow-navy/5" style={`--delay:${i * 120}ms`}>
+          <span class="relative z-10 grid h-12 w-12 shrink-0 place-items-center rounded-full border border-navy/15 bg-ivory font-serif text-lg font-semibold text-navy transition duration-300 group-hover:border-gold group-hover:bg-navy group-hover:text-gold-light">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <div class="pt-2">
+            <h3 class="text-xl font-bold">{paso.titulo}</h3>
+            <p class="mt-2 leading-relaxed text-slate">{paso.texto}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

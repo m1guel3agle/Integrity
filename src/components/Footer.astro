@@ -1,0 +1,49 @@
+---
+import sitio from '../content/sitio.json';
+import home from '../content/home';
+const year = new Date().getFullYear();
+const redes = Object.entries(sitio.redes).filter(([, url]) => url);
+---
+
+<footer class="relative overflow-hidden bg-navy text-white/70">
+  <div class="columns-pattern absolute inset-0" aria-hidden="true"></div>
+  <div class="container-x relative grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <img src="/brand/logo-full-white.png" alt={sitio.razonSocial} width="457" height="393" class="h-28 w-auto" loading="lazy" />
+      <p class="mt-6 max-w-sm text-sm leading-relaxed">{sitio.eslogan}</p>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-bold tracking-[0.2em] text-gold uppercase">Servicios</h2>
+      <ul class="mt-5 space-y-2.5 text-sm">
+        {home.servicios.items.map((s) => (
+          <li><a href="/#servicios" class="transition hover:text-white">{s.titulo}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-bold tracking-[0.2em] text-gold uppercase">Contacto</h2>
+      <ul class="mt-5 space-y-2.5 text-sm">
+        <li><a href={`mailto:${sitio.correo}`} class="transition hover:text-white">{sitio.correo}</a></li>
+        {sitio.telefono && <li><a href={`tel:${sitio.telefono.replace(/\s/g, '')}`} class="transition hover:text-white">{sitio.telefono}</a></li>}
+        {sitio.direccion && <li>{sitio.direccion}</li>}
+        <li>{sitio.ciudad}</li>
+        <li class="pt-3"><a href="/contacto" class="font-semibold text-gold-light transition hover:text-gold">Escríbenos →</a></li>
+      </ul>
+      {redes.length > 0 && (
+        <ul class="mt-6 flex gap-4 text-sm">
+          {redes.map(([red, url]) => (
+            <li><a href={url} target="_blank" rel="noopener" class="capitalize transition hover:text-white">{red}</a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </div>
+  <div class="relative border-t border-white/10">
+    <div class="container-x flex flex-col gap-2 py-6 text-xs sm:flex-row sm:justify-between">
+      <p>© {year} {sitio.razonSocial} Todos los derechos reservados.</p>
+      <p>Revisoría fiscal · Auditoría · Asesoría</p>
+    </div>
+  </div>
+</footer>

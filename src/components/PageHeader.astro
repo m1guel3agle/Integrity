@@ -1,0 +1,18 @@
+---
+interface Props {
+  etiqueta: string;
+  titulo: string;
+  texto?: string;
+}
+const { etiqueta, titulo, texto } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-navy pt-20 text-white">
+  <div class="columns-pattern absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div class="absolute -top-40 -right-40 -z-10 h-[30rem] w-[30rem] rounded-full bg-gold/15 blur-3xl" aria-hidden="true"></div>
+  <div class="container-x py-20 lg:py-24">
+    <p class="eyebrow reveal text-gold-light">{etiqueta}</p>
+    <h1 class="reveal mt-5 max-w-3xl text-4xl leading-tight font-extrabold tracking-tight text-balance sm:text-5xl" style="--delay:80ms">{titulo}</h1>
+    {texto && <p class="reveal mt-5 max-w-2xl text-lg leading-relaxed text-white/75" style="--delay:160ms">{texto}</p>}
+  </div>
+</section>

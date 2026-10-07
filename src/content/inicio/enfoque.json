@@ -1,0 +1,26 @@
+{
+  "etiqueta": "Nuestro enfoque",
+  "titulo": "Más que revisar números, te ayudamos a entender tu empresa",
+  "parrafos": [
+    "Sabemos que cumplir con las obligaciones legales, financieras y tributarias puede convertirse en un reto para cualquier organización.",
+    "Por eso, nuestro trabajo va más allá de revisar información. Analizamos tu empresa, identificamos riesgos, evaluamos controles y te acompañamos para que tengas información clara y puedas tomar decisiones con mayor seguridad."
+  ],
+  "pasos": [
+    {
+      "titulo": "Analizamos tu empresa",
+      "texto": "Entendemos tu operación, tu sector y la información que la sustenta."
+    },
+    {
+      "titulo": "Identificamos riesgos",
+      "texto": "Detectamos situaciones que pueden afectar el cumplimiento o los resultados."
+    },
+    {
+      "titulo": "Evaluamos controles",
+      "texto": "Revisamos que los procesos y controles funcionen como deben."
+    },
+    {
+      "titulo": "Te acompañamos",
+      "texto": "Te entregamos información clara para decidir con mayor seguridad."
+    }
+  ]
+}

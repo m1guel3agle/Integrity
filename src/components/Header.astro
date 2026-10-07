@@ -1,0 +1,77 @@
+---
+const links = [
+  { href: '/#enfoque', label: 'Nosotros' },
+  { href: '/#servicios', label: 'Servicios' },
+  { href: '/#por-que', label: '¿Por qué elegirnos?' },
+];
+const isContact = Astro.url.pathname.startsWith('/contacto');
+---
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300" data-scrolled="false">
+  <div class="container-x flex h-20 items-center justify-between gap-6">
+    <a href="/" class="group flex items-center gap-3" aria-label="Integrity Group AAL S.A.S. — Inicio">
+      <img src="/brand/emblem-white.png" alt="" width="40" height="40" class="h-10 w-10 transition-transform duration-500 group-hover:scale-105" />
+      <span class="leading-none text-white">
+        <span class="block text-[15px] font-extrabold tracking-wide">INTEGRITY GROUP</span>
+        <span class="mt-1 block text-[11px] font-bold tracking-[0.3em] text-gold-light">AAL S.A.S.</span>
+      </span>
+    </a>
+
+    <nav aria-label="Principal" class="hidden items-center gap-8 lg:flex">
+      {links.map((l) => (
+        <a href={l.href} class="relative text-sm font-semibold text-white/80 transition hover:text-white after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all hover:after:w-full">
+          {l.label}
+        </a>
+      ))}
+      <a href="/contacto" class:list={['btn-gold !py-2.5', isContact && 'pointer-events-none opacity-80']} aria-current={isContact ? 'page' : undefined}>
+        Contáctanos
+      </a>
+    </nav>
+
+    <button id="menu-toggle" type="button" class="grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path class="menu-open" d="M4 7h16M4 12h16M4 17h10" />
+        <path class="menu-close hidden" d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-white/10 bg-navy lg:hidden">
+    <nav aria-label="Principal móvil" class="container-x flex flex-col py-4">
+      {links.map((l) => (
+        <a href={l.href} class="border-b border-white/10 py-4 text-base font-semibold text-white/90">{l.label}</a>
+      ))}
+      <a href="/contacto" class="btn-gold mt-5">Contáctanos</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  #site-header[data-scrolled='true'],
+  #site-header:has(#mobile-menu:not(.hidden)) {
+    background: rgb(0 27 59 / 0.92);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px -15px rgb(0 0 0 / 0.5);
+  }
+</style>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  const toggle = document.getElementById('menu-toggle')!;
+  const menu = document.getElementById('mobile-menu')!;
+
+  const onScroll = () => (header.dataset.scrolled = String(window.scrollY > 10));
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const setOpen = (open: boolean) => {
+    menu.classList.toggle('hidden', !open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    toggle.querySelector('.menu-open')!.classList.toggle('hidden', open);
+    toggle.querySelector('.menu-close')!.classList.toggle('hidden', !open);
+  };
+  toggle.addEventListener('click', () => setOpen(menu.classList.contains('hidden')));
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
+</script>

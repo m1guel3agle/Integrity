@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Servicios from '../components/home/Servicios.astro';
+import ContactoCta from '../components/home/ContactoCta.astro';
+import home from '../content/home';
+---
+
+<Layout title="Servicios" description={home.servicios.titulo}>
+  <PageHeader etiqueta="Servicios" titulo={home.servicios.titulo} texto={home.hero.complemento} />
+  <Servicios showAllButton={false} />
+  <ContactoCta />
+</Layout>

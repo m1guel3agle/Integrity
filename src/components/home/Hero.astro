@@ -1,0 +1,128 @@
+---
+import home from '../../content/home';
+const { hero } = home;
+const checklist = ['Estados financieros', 'Control interno', 'Cumplimiento tributario', 'Gestión de riesgos'];
+---
+
+<section class="relative isolate overflow-hidden bg-navy pt-20 text-white">
+  <div class="columns-pattern absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div class="absolute -top-40 -right-40 -z-10 h-[38rem] w-[38rem] rounded-full bg-gold/15 blur-3xl" aria-hidden="true"></div>
+  <div class="absolute -bottom-52 -left-40 -z-10 h-[30rem] w-[30rem] rounded-full bg-navy-700/60 blur-3xl" aria-hidden="true"></div>
+
+  <div class="container-x grid min-h-[min(calc(100svh-5rem),54rem)] items-center gap-14 py-16 lg:grid-cols-[1.15fr_1fr] lg:py-20">
+    <div>
+      <p class="eyebrow reveal text-gold-light">{hero.etiqueta}</p>
+      <h1 class="reveal mt-6 text-4xl leading-[1.08] font-extrabold tracking-tight text-balance sm:text-5xl xl:text-6xl" style="--delay:100ms">
+        {hero.titulo}
+        <span class="mt-1 block font-serif font-medium text-gold-light italic">{hero.tituloDestacado}</span>
+      </h1>
+      <p class="reveal mt-7 max-w-xl text-lg leading-relaxed text-white/85" style="--delay:200ms">{hero.descripcion}</p>
+      <p class="reveal mt-4 max-w-xl border-l-2 border-gold/60 pl-4 text-[15px] leading-relaxed text-white/65" style="--delay:250ms">{hero.complemento}</p>
+      <div class="reveal mt-10 flex flex-wrap gap-4" style="--delay:350ms">
+        <a href="/contacto" class="btn-gold">
+          {hero.botonPrincipal}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#servicios" class="btn-outline-light">{hero.botonSecundario}</a>
+      </div>
+    </div>
+
+    <!-- Visual: emblema + tarjeta de "revisión" animada -->
+    <div class="reveal relative mx-auto w-full max-w-[22rem] sm:max-w-md lg:max-w-none" style="--delay:300ms" aria-hidden="true">
+      <div id="hero-visual" class="relative aspect-square transition-transform duration-300 ease-out will-change-transform">
+        <div class="absolute inset-[8%] rounded-full border border-gold/25"></div>
+        <div class="spin-slow absolute inset-[0%] rounded-full border border-dashed border-white/10"></div>
+        <div class="absolute inset-[18%] rounded-full bg-gradient-to-b from-navy-700/70 to-navy shadow-[0_0_120px_-20px] shadow-gold/40"></div>
+        <img src="/brand/emblem-white.png" alt="" width="282" height="282" class="absolute inset-[30%] h-[40%] w-[40%] drop-shadow-[0_10px_30px_rgba(0,0,0,0.4)]" />
+
+        <div class="float-card absolute -bottom-2 left-0 w-60 rounded-2xl border border-white/10 bg-white/95 p-5 text-navy shadow-2xl shadow-black/40 sm:left-[-4%] sm:w-64">
+          <p class="text-[11px] font-bold tracking-[0.18em] text-slate uppercase">Revisión en curso</p>
+          <ul class="mt-3 space-y-2.5">
+            {checklist.map((item, i) => (
+              <li class="check-item flex items-center gap-2.5 text-sm font-semibold" style={`--i:${i}`}>
+                <span class="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-gold text-navy">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="float-card-alt absolute top-[6%] right-0 rounded-2xl border border-gold/30 bg-navy-800/90 px-5 py-4 shadow-xl backdrop-blur sm:right-[-2%]">
+          <p class="font-serif text-2xl text-gold-light italic">Integridad</p>
+          <p class="text-xs font-semibold tracking-wide text-white/70">Ética · Confidencialidad</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#enfoque" class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[11px] font-semibold tracking-[0.2em] text-white/50 uppercase transition hover:text-gold-light lg:flex">
+    Descubre más
+    <span class="scroll-dot block h-9 w-5 rounded-full border border-current"></span>
+  </a>
+</section>
+
+<style>
+  .spin-slow {
+    animation: spin 60s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  .float-card {
+    animation: float 7s ease-in-out infinite;
+  }
+  .float-card-alt {
+    animation: float 8s ease-in-out -3s infinite;
+  }
+  @keyframes float {
+    50% { transform: translateY(-10px); }
+  }
+  .check-item {
+    opacity: 0;
+    animation: check-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    animation-delay: calc(900ms + var(--i) * 350ms);
+  }
+  @keyframes check-in {
+    from { opacity: 0; transform: translateX(-8px); }
+    to { opacity: 1; transform: none; }
+  }
+  .scroll-dot {
+    position: relative;
+  }
+  .scroll-dot::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    width: 3px;
+    height: 7px;
+    margin-left: -1.5px;
+    border-radius: 2px;
+    background: currentColor;
+    animation: scroll-dot 2s ease-in-out infinite;
+  }
+  @keyframes scroll-dot {
+    0% { opacity: 0; transform: translateY(0); }
+    40% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(12px); }
+  }
+</style>
+
+<script>
+  // Ligero efecto 3D del emblema al mover el mouse (solo escritorio y sin "reducir movimiento")
+  const visual = document.getElementById('hero-visual');
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (visual && finePointer && !reduce) {
+    const section = visual.closest('section')!;
+    section.addEventListener('mousemove', (e) => {
+      const r = section.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      visual.style.transform = `perspective(1000px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+    });
+    section.addEventListener('mouseleave', () => (visual.style.transform = ''));
+  }
+</script>

@@ -1,0 +1,37 @@
+{
+  "etiqueta": "Nuestros servicios",
+  "titulo": "Soluciones integrales para el cumplimiento de tu empresa",
+  "boton": "Ver todos nuestros servicios",
+  "items": [
+    {
+      "icono": "balanza",
+      "titulo": "Revisoría Fiscal Integral",
+      "texto": "Revisión y evaluación de estados financieros, control interno y cumplimiento, con los informes y dictámenes correspondientes."
+    },
+    {
+      "icono": "lupa",
+      "titulo": "Auditoría",
+      "texto": "Evaluación de información, procesos y controles para identificar riesgos y oportunidades de mejora."
+    },
+    {
+      "icono": "calculadora",
+      "titulo": "Consultoría Tributaria y Contable",
+      "texto": "Acompañamiento profesional para analizar la situación contable y tributaria de tu empresa."
+    },
+    {
+      "icono": "mazo",
+      "titulo": "Asesoría Legal",
+      "texto": "Orientación jurídica para acompañar las necesidades y operaciones de tu empresa."
+    },
+    {
+      "icono": "escudo",
+      "titulo": "SAGRILAFT",
+      "texto": "Acompañamiento en la prevención y gestión de riesgos relacionados con lavado de activos y financiación del terrorismo, cuando resulte aplicable."
+    },
+    {
+      "icono": "check",
+      "titulo": "Cumplimiento y Control Interno",
+      "texto": "Evaluación del funcionamiento de los controles y de las obligaciones legales aplicables."
+    }
+  ]
+}

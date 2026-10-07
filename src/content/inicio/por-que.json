@@ -1,0 +1,22 @@
+{
+  "etiqueta": "¿Por qué elegirnos?",
+  "titulo": "Profesionalismo que se traduce en tranquilidad",
+  "items": [
+    {
+      "titulo": "Responsabilidad",
+      "texto": "Asumimos cada trabajo con compromiso y rigurosidad."
+    },
+    {
+      "titulo": "Asesoría personalizada",
+      "texto": "Cada empresa tiene necesidades diferentes. Nuestro acompañamiento se adapta a tu realidad."
+    },
+    {
+      "titulo": "Atención al detalle",
+      "texto": "Analizamos la información cuidadosamente para detectar situaciones relevantes."
+    },
+    {
+      "titulo": "Ética y transparencia",
+      "texto": "Trabajamos con integridad, confidencialidad y comunicación clara."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+---
+// Panel de contenido (Sveltia CMS). La configuración está en public/admin/config.yml
+---
+
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Integrity Group · Panel</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="cms-config-url" type="application/yaml" href="/admin/config.yml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap" rel="stylesheet" />
+    <style is:inline>
+      /* Colores y tipografía de la marca dentro del panel */
+      :root {
+        --sui-base-hue: 213 !important;
+        --sui-font-family-default: 'Plus Jakarta Sans', system-ui, sans-serif !important;
+      }
+      :root:not([data-theme='dark']) {
+        --sui-primary-accent-color: #001b3b !important;
+        --sui-primary-accent-color-light: #163a68 !important;
+        --sui-primary-accent-color-dark: #000f22 !important;
+        --sui-primary-accent-color-text: #0a2a52 !important;
+        --sui-focus-ring-color: #c9a24b !important;
+      }
+      :root[data-theme='dark'] {
+        --sui-primary-accent-color: #c9a24b !important;
+        --sui-primary-accent-color-light: #e2c88a !important;
+        --sui-primary-accent-color-dark: #a7832f !important;
+        --sui-primary-accent-color-text: #e2c88a !important;
+        --sui-primary-accent-color-inverted: #001b3b !important;
+        --sui-focus-ring-color: #e2c88a !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Versión fijada para que una actualización no cambie el panel sin aviso -->
+    <script is:inline src="https://unpkg.com/@sveltia/cms@0.231.0/dist/sveltia-cms.js"></script>
+  </body>
+</html>

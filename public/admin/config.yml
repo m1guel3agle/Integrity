@@ -1,0 +1,162 @@
+# Panel de contenido de integrityaal.com (Sveltia CMS) — https://sveltiacms.app
+# Cada cambio publicado aquí crea un commit en GitHub y el hosting republica el sitio.
+backend:
+  name: github
+  repo: m1guel3agle/Integrity
+  branch: main
+  commit_messages:
+    update: "Contenido: actualiza {{slug}}"
+
+app_title: Integrity Group · Panel
+site_url: https://integrityaal.com
+logo:
+  src: /brand/icon-512.png
+show_preview_links: true
+editor:
+  preview: false
+
+media_folder: public/uploads
+public_folder: /uploads
+
+singletons:
+  - name: sitio
+    label: Datos de contacto
+    icon: contact_mail
+    file: src/content/sitio.json
+    preview_path: /contacto
+    fields:
+      - name: correo
+        label: Correo de contacto
+        hint: Aparece en el pie de página, en la sección final y en /contacto.
+        pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', 'Escribe un correo válido']
+      - name: telefono
+        label: Teléfono
+        required: false
+        hint: "Como quieres que se vea, ej. +57 301 3479981"
+      - name: whatsapp
+        label: WhatsApp
+        required: false
+        hint: "Solo números con indicativo, sin espacios ni +, ej. 573013479981. Si lo dejas vacío, se oculta el botón verde flotante."
+        pattern: ['^[0-9]*$', 'Usa solo números, ej. 573013479981']
+      - { name: ciudad, label: Ciudad, hint: "ej. Medellín, Colombia" }
+      - { name: direccion, label: Dirección, required: false, hint: Déjala vacía si no quieres mostrarla. }
+      - { name: horario, label: Horario de atención, required: false }
+      - name: redes
+        label: Redes sociales
+        widget: object
+        collapsed: auto
+        hint: Pega el enlace completo. Las que dejes vacías no se muestran.
+        fields:
+          - { name: linkedin, label: LinkedIn, required: false }
+          - { name: instagram, label: Instagram, required: false }
+          - { name: facebook, label: Facebook, required: false }
+      - name: nombre
+        label: Nombre corto
+      - name: razonSocial
+        label: Razón social
+      - name: eslogan
+        label: Eslogan
+      - name: descripcionSeo
+        label: Descripción para Google
+        widget: text
+        hint: Texto que aparece bajo el título del sitio en los resultados de búsqueda. Idealmente menos de 160 caracteres.
+
+  - divider: true
+
+  - name: portada
+    label: "Inicio · 1. Portada"
+    icon: home
+    file: src/content/inicio/portada.json
+    preview_path: /
+    fields:
+      - { name: etiqueta, label: Texto pequeño superior, hint: Línea dorada sobre el título. }
+      - { name: titulo, label: Título (blanco) }
+      - { name: tituloDestacado, label: "Título destacado (dorado, en cursiva)" }
+      - { name: descripcion, label: Descripción principal, widget: text }
+      - { name: complemento, label: Texto complementario, widget: text, hint: Párrafo pequeño con la línea dorada a la izquierda. }
+      - { name: botonPrincipal, label: Botón dorado, hint: Lleva a la página de contacto. }
+      - { name: botonSecundario, label: Botón con borde, hint: Lleva a la sección de servicios. }
+
+  - name: enfoque
+    label: "Inicio · 2. Nuestro enfoque"
+    icon: lightbulb
+    file: src/content/inicio/enfoque.json
+    preview_path: /#enfoque
+    fields:
+      - { name: etiqueta, label: Texto pequeño superior }
+      - { name: titulo, label: Título }
+      - name: parrafos
+        label: Párrafos
+        widget: list
+        field: { name: parrafo, label: Párrafo, widget: text }
+      - name: pasos
+        label: Pasos del método
+        label_singular: paso
+        widget: list
+        summary: "{{fields.titulo}}"
+        collapsed: auto
+        hint: Se muestran numerados (01, 02…). Arrastra para cambiar el orden.
+        fields:
+          - { name: titulo, label: Título }
+          - { name: texto, label: Texto, widget: text }
+
+  - name: servicios
+    label: "Inicio · 3. Servicios"
+    icon: work
+    file: src/content/inicio/servicios.json
+    preview_path: /#servicios
+    fields:
+      - { name: etiqueta, label: Texto pequeño superior }
+      - { name: titulo, label: Título }
+      - { name: boton, label: Texto del botón "ver todos" }
+      - name: items
+        label: Servicios
+        label_singular: servicio
+        widget: list
+        summary: "{{fields.titulo}}"
+        collapsed: auto
+        hint: También alimentan el pie de página y la lista del formulario de contacto. Arrastra para cambiar el orden.
+        fields:
+          - name: icono
+            label: Ícono
+            widget: select
+            default: documento
+            options:
+              - { label: Balanza, value: balanza }
+              - { label: Lupa, value: lupa }
+              - { label: Calculadora, value: calculadora }
+              - { label: Mazo (legal), value: mazo }
+              - { label: Escudo, value: escudo }
+              - { label: Lista de chequeo, value: check }
+              - { label: Documento, value: documento }
+              - { label: Gráfica, value: grafica }
+          - { name: titulo, label: Nombre del servicio }
+          - { name: texto, label: Descripción, widget: text }
+
+  - name: por-que
+    label: "Inicio · 4. ¿Por qué elegirnos?"
+    icon: verified
+    file: src/content/inicio/por-que.json
+    preview_path: /#por-que
+    fields:
+      - { name: etiqueta, label: Texto pequeño superior }
+      - { name: titulo, label: Título }
+      - name: items
+        label: Razones
+        label_singular: razón
+        widget: list
+        summary: "{{fields.titulo}}"
+        collapsed: auto
+        fields:
+          - { name: titulo, label: Título }
+          - { name: texto, label: Texto, widget: text }
+
+  - name: contactanos
+    label: "Inicio · 5. Banda «Contáctanos»"
+    icon: forum
+    file: src/content/inicio/contactanos.json
+    preview_path: /
+    fields:
+      - { name: titulo, label: Título }
+      - { name: texto, label: Texto, widget: text }
+      - { name: boton, label: Texto del botón, hint: Lleva a la página de contacto. }

@@ -1,0 +1,149 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import sitio from '../content/sitio.json';
+import home from '../content/home';
+
+// Clave pública de Web3Forms (https://web3forms.com) — se configura en .env / Vercel
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+
+const datos = [
+  { label: 'Correo', valor: sitio.correo, href: `mailto:${sitio.correo}` },
+  sitio.telefono && { label: 'Teléfono', valor: sitio.telefono, href: `tel:${sitio.telefono.replace(/\s/g, '')}` },
+  sitio.whatsapp && { label: 'WhatsApp', valor: sitio.whatsapp, href: `https://wa.me/${sitio.whatsapp.replace(/\D/g, '')}` },
+  sitio.direccion && { label: 'Dirección', valor: sitio.direccion },
+  { label: 'Ubicación', valor: sitio.ciudad },
+  sitio.horario && { label: 'Horario', valor: sitio.horario },
+].filter(Boolean) as { label: string; valor: string; href?: string }[];
+
+const inputClass =
+  'mt-2 w-full rounded-xl border border-navy/15 bg-white px-4 py-3 text-navy placeholder:text-slate/60 transition outline-none focus:border-gold focus:ring-4 focus:ring-gold/20';
+---
+
+<Layout title="Contáctanos" description="Escríbenos y te contactaremos para entender las necesidades de tu empresa.">
+  <PageHeader
+    etiqueta="Contáctanos"
+    titulo="Hablemos de tu empresa"
+    texto={home.contactoCta.texto}
+  />
+
+  <section class="bg-ivory py-20 lg:py-28">
+    <div class="container-x grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
+      <aside class="reveal space-y-8">
+        <div>
+          <h2 class="text-2xl font-extrabold">Información de contacto</h2>
+          <p class="mt-3 leading-relaxed text-slate">Respondemos tu mensaje lo antes posible, normalmente en menos de un día hábil.</p>
+        </div>
+        <dl class="space-y-5">
+          {datos.map((d) => (
+            <div class="border-l-2 border-gold pl-4">
+              <dt class="text-xs font-bold tracking-[0.18em] text-slate uppercase">{d.label}</dt>
+              <dd class="mt-1 text-lg font-semibold break-words">
+                {d.href ? <a href={d.href} class="transition hover:text-gold-dark">{d.valor}</a> : d.valor}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <div class="rounded-3xl bg-navy p-7 text-white">
+          <img src="/brand/emblem-white.png" alt="" width="282" height="282" class="h-12 w-12" loading="lazy" />
+          <p class="mt-4 font-serif text-xl italic text-gold-light">{sitio.eslogan}</p>
+        </div>
+      </aside>
+
+      <div class="reveal rounded-3xl bg-white p-6 shadow-xl shadow-navy/5 sm:p-10" style="--delay:120ms">
+        <form id="contact-form" class="grid gap-5 sm:grid-cols-2" novalidate>
+          <input type="hidden" name="access_key" value={accessKey} />
+          <input type="hidden" name="subject" value="Nuevo mensaje desde integrityaal.com" />
+          <input type="hidden" name="from_name" value="Sitio web Integrity Group" />
+          <!-- Anti-spam: los humanos no ven este campo -->
+          <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
+
+          <label class="block text-sm font-semibold">
+            Nombre completo *
+            <input name="nombre" required autocomplete="name" class={inputClass} placeholder="Tu nombre" />
+          </label>
+          <label class="block text-sm font-semibold">
+            Empresa
+            <input name="empresa" autocomplete="organization" class={inputClass} placeholder="Nombre de tu empresa" />
+          </label>
+          <label class="block text-sm font-semibold">
+            Correo electrónico *
+            <input name="email" type="email" required autocomplete="email" class={inputClass} placeholder="tu@correo.com" />
+          </label>
+          <label class="block text-sm font-semibold">
+            Teléfono
+            <input name="telefono" type="tel" autocomplete="tel" class={inputClass} placeholder="300 000 0000" />
+          </label>
+          <label class="block text-sm font-semibold sm:col-span-2">
+            Servicio de interés
+            <select name="servicio" class={inputClass}>
+              <option value="">Selecciona una opción</option>
+              {home.servicios.items.map((s) => <option>{s.titulo}</option>)}
+              <option>Otro / No estoy seguro</option>
+            </select>
+          </label>
+          <label class="block text-sm font-semibold sm:col-span-2">
+            Mensaje *
+            <textarea name="mensaje" required rows="5" class={inputClass} placeholder="Cuéntanos brevemente qué necesita tu empresa"></textarea>
+          </label>
+          <label class="flex items-start gap-3 text-sm text-slate sm:col-span-2">
+            <input type="checkbox" name="autorizacion_datos" value="Sí" required class="mt-0.5 h-5 w-5 shrink-0 accent-navy" />
+            <span>Autorizo el tratamiento de mis datos personales para ser contactado, conforme a la Ley 1581 de 2012. *</span>
+          </label>
+
+          <div class="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center">
+            <button type="submit" class="btn-navy !px-8 disabled:cursor-wait disabled:opacity-60">
+              <span data-label>Enviar mensaje</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p id="form-status" class="text-sm font-semibold" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('form-status')!;
+  const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const label = button.querySelector('[data-label]')!;
+
+  const show = (msg: string, ok: boolean) => {
+    status.textContent = msg;
+    status.className = `text-sm font-semibold ${ok ? 'text-emerald-700' : 'text-red-700'}`;
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    const data = new FormData(form);
+    if (!data.get('access_key')) {
+      show('El formulario aún no está configurado. Escríbenos directamente al correo.', false);
+      return;
+    }
+    button.disabled = true;
+    label.textContent = 'Enviando…';
+    status.textContent = '';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: data,
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.message);
+      form.reset();
+      show('¡Gracias! Recibimos tu mensaje y te contactaremos pronto.', true);
+    } catch {
+      show('No pudimos enviar el mensaje. Intenta de nuevo o escríbenos al correo.', false);
+    } finally {
+      button.disabled = false;
+      label.textContent = 'Enviar mensaje';
+    }
+  });
+</script>
